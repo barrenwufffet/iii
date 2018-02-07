@@ -1,0 +1,162 @@
+/* Gavin Smith & Liam Durant
+ * COMP 40
+ * 2/6/18
+ * DESIGN
+ */
+
+/* uarray2 */
+
+1. What is the abstract thing you are trying to represent?
+
+Taking something in matrix format and saving it as an array.
+
+2. What functions will you offer, and what are the contracts 
+those functions must meet?
+
+T * uarray2_new(int height, int width, int dataSize) Creates a new 
+2D uarray and returns a pointer to it.
+
+void * uarray2_at(T uarray2, int row, int col) Retrieves the 
+value at a specified index of the uarray and returns it.
+
+int uarray2_width(T uarray2) Returns the width of the uarray.
+
+int uarray2_height(T uarray2) Returns the height of the uarray.
+
+void uarray2_free(T * uarray2) Frees all data allocated in
+creating the uarray.
+
+void uarray2_map_row_major(T uarray2, void apply(int row, int col,
+        T array, void *cl), void *cl), void *cl) Iterates through
+the uarray and returns the value in each index to an apply function.
+Does so in row major order.
+
+void uarray2_map_col_major(T uarray2, void apply(int row, int col,
+        T array, void *cl), void *cl), void *cl) Iterates through
+the uarray and returns the value in each index to an apply function.
+Does so in column major order.
+
+3. What examples do you have of what the functions are supposed 
+to do?
+
+T * uarray2_new(5, 5, sizeof(int)); //Creates a 5 by 5 uarray of ints
+void * uarray2_at(array, 2, 3); //Gets value at (2,3) in the uarray.
+int uarray2_width(array); //Returns the width of the array.
+int uarray2_height(array); //Returns the height of the array.
+void uarray2_free(*array); //Frees data in the array.
+void uarray2_map_row_major(array, printValues, NULL);
+        //Iterates through the passed in array and calls 
+        //printValues function on each index (in row major)
+void uarray2_map_col_major(array, printValues, NULL);
+        //Iterates through the passed in array and calls 
+        //printValues function on each index (in column major)
+
+4. What representation will you use, and what invariants will it
+satisfy?
+
+We are going to represent a 2D unboxed array with a 1D Hanson
+unboxed array that is long enough so that the dimensions of the 
+2D array exist only within the 1D array. For example if the array
+is 5x5 our 1D array would be 25 indecies long so that the 5x5 array
+is represented, with every 5 indecies being a new row. The 
+invariant is that every "width" number of indecies will mean that
+a new row is beginning.
+
+5. How does an object in you representation correspond to an object
+in the world of ideas?
+
+The 1D array will represent a matrix of data. Every "width" 
+number of indecies cooresponds to a complete row.
+
+6. What test cases have you devised?
+
+Pass in empty file.
+Pass in image file.
+Pass in non-matrix styled file.
+Pass in very large files.
+Pass in very small files. 
+
+First we will test to see if we can create a new array correctly,
+and have the width and height displayed correctly. Then we have
+to make sure the memory is freed correctly. For the width and 
+height functions we will test passing in arrays that dont exist,
+as well as empty arrays, and these should throw exceptions. Then
+we will test trying to access out of bounds indecies with the at
+function, which again should throw an exception. Also we will test
+the mapping functions first by printing out each value that is 
+mapped through and then trying to do something with the actual
+values that are recieved.
+
+7. What programming idioms will you need?
+
+The idiom for making a struct.
+The idiom for allocating memory.
+The idiom for handling void pointers.
+
+/* bit2 */
+
+1. What is the abstract thing you are trying to represent?
+
+We are trying to represent an array of bits to represent things
+like images.
+
+2. What function will you offer, and what are the contracts 
+those functions must meet?
+
+T * bit2_new(int height, int width, int dataSize) Creates a new
+bitarray and returns a pointer to it.
+
+int bit2_put(T bit2, int bitnum, int row, int col) Takes in a 
+bitarray as well as an int which is the value of the bit being
+placed (0 or 1) and then the coordinates where it will be placed.
+Returns the value of the bit previously in that spot.
+
+int bit2_get(T bit2, int row, int col) Takes in a bitarray and
+the coordinates of the bit that you wish to retrieve, returns
+the value of the bit in those coordinates.
+
+int bit2_width(T bit2) Takes in a bitarray and returns the width.
+
+int bit2_height(T bit2) Takes in a bitarray and returns the height.
+
+void bit2_free(T * bit2) Takes in a pointer to a bitarray and 
+frees all of the data allocated creating the array.
+
+void bit2_map_row_major(T bit2, void apply(int row, int col,
+        T bitarr, int bitval, void *cl), void *cl) 
+Takes in a bitarray and iterates through that array and calls
+an apply function which is passed in as a function pointer. That
+apply function takes in the coordinates of each index, the actual
+array itself, the value of the bit at that index, and then the 
+closure. Iterates through the array in row major style.
+
+void bit2_map_col_major(T bit2, void apply(int row, int col,
+        T bitarr, int bitval, void *cl), void *cl)
+Takes in a bitarray and iterates through that array and calls
+an apply function which is passed in as a function pointer. That
+apply function takes in the coordinates of each index, the actual
+array itself, the value of the bit at that index, and then the 
+closure. Iterates through the array in column major style.
+
+3. What examples do you have of what the functions are supposed 
+to do?
+
+
+
+4. What representation will you use, and what invariants will it
+satisfy?
+
+
+
+5. How does an object in you representation correspond to an object
+in the world of ideas?
+
+
+
+6. What test cases have you devised?
+
+
+
+7. What programming idioms will you need?
+
+
