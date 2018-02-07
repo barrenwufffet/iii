@@ -10,7 +10,7 @@
 #define B bit2_T
 typedef struct T *T;
  
-T * bit2_new(int height, int width, int dataSize);
+T * bit2_new(int height, int width);
 int bit2_put(T bit2, int bitnum, int row, int col);
 int bit2_get(T bit2, int row, int col);
 int bit2_width(T bit2); 

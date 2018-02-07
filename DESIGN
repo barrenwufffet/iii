@@ -8,7 +8,8 @@
 
 1. What is the abstract thing you are trying to represent?
 
-Taking something in matrix format and saving it as an array.
+Taking something in matrix format and saving it as a 2D
+unboxed array.
 
 2. What functions will you offer, and what are the contracts 
 those functions must meet?
@@ -92,6 +93,7 @@ values that are recieved.
 The idiom for making a struct.
 The idiom for allocating memory.
 The idiom for handling void pointers.
+The idiom for handling unboxed arrays.
 
 /* bit2 */
 
@@ -103,7 +105,7 @@ like images.
 2. What function will you offer, and what are the contracts 
 those functions must meet?
 
-T * bit2_new(int height, int width, int dataSize) Creates a new
+T * bit2_new(int height, int width) Creates a new
 bitarray and returns a pointer to it.
 
 int bit2_put(T bit2, int bitnum, int row, int col) Takes in a 
@@ -141,22 +143,61 @@ closure. Iterates through the array in column major style.
 3. What examples do you have of what the functions are supposed 
 to do?
 
-
+T * bit2_new(6, 6); //Creates a bitarray that is 6 by 6 bits. 
+int bit2_put(bitarr, 0, 2, 5);
+        //Puts a bit value of 0 in the passed in bitarray at row
+        2 column 5 and returns the previous bit value.
+int bit2_get(bitarr, 3, 3); //Retrieves the bitvalue
+        of the index (3,3) and returns it.
+int bit2_width(bitarr); //Returns the width of the passed in array. 
+int bit2_height(bitarr); //Returns the height of the passed in array.
+void bit2_free(*bitarr); //Frees the data from the passed in array.
+void bit2_map_row_major(bitarr, printBits, NULL);
+        //Takes in the passed in array and calls the function
+        pointer for each value in the array. Iterates through
+        in row major style.
+void bit2_map_col_major(bitarr, printBits, NULL);
+        //Takes in the passed in array and calls the function
+        pointer for each value in the array. Iterates through
+        in column major style.
 
 4. What representation will you use, and what invariants will it
 satisfy?
 
+We are going to represent a two dimensional array of bits with
+a long one dimensional array of bits that will be the length of
+the product of the width and height of the desired two dimensional
+array (such as if the desired array is 5x5 we would create a 25
+index long array). The invariants will be that each index will 
+contain a bit value of either 0 or 1 and that every "width"
+number of indecies will mark the beginning of a new row.
 
-
-5. How does an object in you representation correspond to an object
+5. How does an object in your representation correspond to an object
 in the world of ideas?
 
-
+Each value in our two dimensional array is just a bit that is 
+either a 0 or a 1. Our array will have a width and a height but
+since it is represented with a long one dimensional array every
+"width" number of indecies will represent one row, with the next
+value being the next row.
 
 6. What test cases have you devised?
 
-
+First we will have to just create a bit array and then print out
+all the values and then make sure that we can properly free the 
+bit array. After the basic functioning is correctly operating we 
+can attempt to use get and put first to access bits that are in the
+array and then later trying to access bits that are out of bounds, 
+and this should throw an exception. Then we would just check to see
+if the width and height functions properly return the dimensions
+of the current bitarray. We will also test that both of our mapping
+functions correctly iterate through the array and are able to print
+out each bit (because this is the easiest way to check that it
+iterated correctly). Then we could try our mapping functions with
+more complex apply functions. 
 
 7. What programming idioms will you need?
 
-
+The idiom for making a struct.
+The idiom for allocating memory.
+The idiom for handling void pointers.
