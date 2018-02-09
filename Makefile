@@ -43,7 +43,7 @@ LDLIBS = -lpnmrdr -lcii40 -lm
 # he agrees with Noah that you'll probably spend hours 
 # debugging if you forget to put .h files in your 
 # dependency list.
-INCLUDES = $(shell echo *.h)
+INCLUDES = $(shell echo *.h) 
 
 ############### Rules ###############
 
@@ -52,10 +52,10 @@ all: sudoku unblackedges my_useuarray2 my_usebit2
 
 ## Compile step (.c files -> .o files)
 
+
 # To get *any* .o file, compile its .c file with the following rule.
 %.o: %.c $(INCLUDES)
 	$(CC) $(CFLAGS) -c $< -o $@
-
 
 ## Linking step (.o -> executable program)
 
@@ -65,7 +65,7 @@ sudoku: sudoku.o uarray2.o
 unblackedges: unblackedges.o bit2.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-my_useuarray2: useuarray2.o uarray2.o
+my_useuarray2: uarray2.o useuarray2.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
 my_usebit2: usebit2.o bit2.o

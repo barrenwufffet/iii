@@ -16,8 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-#include <uarray2.h>
+#include "uarray2.h"
 
 typedef long number;
 
@@ -41,8 +40,7 @@ check_and_print(int i, int j, UArray2_T a, void *p1, void *p2)
         printf("ar[%d,%d]\n", i, j);
 }
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
         (void)argc;
         (void)argv;
