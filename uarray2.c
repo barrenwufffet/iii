@@ -1,3 +1,9 @@
+/* Gavin Smith & Liam Durant
+ * COMP 40
+ * 2/12/18
+ * uarray2.c
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
