@@ -9,7 +9,7 @@
 
 #define T UArray2_T
 typedef struct T *T;
- 
+
 T UArray2_new(int width, int height, int dataSize);
 void *  UArray2_at(T UArray2, int col, int row);
 int UArray2_width(T UArray2); 

@@ -1,0 +1,83 @@
+/* Gavin Smith & Liam Durant
+ * COMP 40
+ * 2/12/18
+ * sudoku.c
+ */
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include "uarray2.h"
+#include "assert.h"
+#include "pnmrdr.h"
+#include "except.h"
+
+
+
+int solve(Pnmrdr_T image);
+
+
+int main(int argc, char * argv[]) 
+{
+  Pnmrdr_T image;    
+
+  if ( argc == 1 ){
+    TRY
+      image = Pnmrdr_new(stdin);
+    EXCEPT(Pnmrdr_Badformat);
+    assert(EXIT_FAILURE);
+    END_TRY;
+    solve(image);
+    Pnmrdr_free(&image);
+
+  } else if (argc == 2) {
+    FILE * greyscale=fopen(argv[1],"rb");
+    if (greyscale==NULL) {
+      fprintf(stderr, "ERROR: FILE DOES NOT EXIST\n");
+      assert(0);
+    }
+
+    TRY
+      image = Pnmrdr_new(greyscale);
+    EXCEPT(Pnmrdr_Badformat);
+    fprintf(stderr, "ERROR: INVALID FILE TYPE\n");
+    assert(0);
+    EXCEPT(Pnmrdr_Count)
+      fprintf(stderr, "ERROR: WRONG NUMBER OF PIXELS READ\n");
+    assert(0);
+    END_TRY;
+    
+    solve(image);
+    fclose(greyscale);
+    Pnmrdr_free(&image);
+  } else {
+
+  fprintf(stderr, "ERROR: INVALID NUMBER OF ARGUMENTS\n");    
+    assert(0);
+  }
+
+  return 0;
+}
+
+void solve (Pnmrdr_T image) 
+{
+  
+  Pnmrdr_mapdata map;
+  map = Pnmrdr_data(image);
+ 
+  if (map.type!=2) {
+    fprintf(stderr, "ERROR: INVALID MAP TYPE\n");
+    assert(0);
+  }
+  if (map.width==0 || map.height==0) {
+     fprintf(stderr,"ERROR: 0 PIXEL IMAGE\n");
+     assert(0);
+  }
+  if (map.width < 9 ||  map.height < 9) {
+    fprintf(stderr, "ERROR: NOT PROPER DIMENS FOR SUDOKU");
+    assert(0);
+} 
+
+
+
+//two apply functions

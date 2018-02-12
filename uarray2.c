@@ -24,7 +24,7 @@ T UArray2_new (int width, int height, int dataSize)
 if (height * width * dataSize==0) {
 assert(0);
 }
-  T uStruct = (T)malloc(20);
+  T uStruct = (T)malloc(width*height*dataSize);
   assert(uStruct);
   uStruct->ray = UArray_new(height * width, dataSize);
   uStruct->height = height;
@@ -33,16 +33,20 @@ assert(0);
 return uStruct;
 } 
 
+
+
 void *  UArray2_at( T UArray2, int col, int row) {
 assert(UArray2);
-int index=row*(UArray2->width) + col;
 if (col >= UArray2->width || row >= UArray2->height || row < 0 || col < 0) {
-printf("w: %d h: %d \nc: %d r: %d \n", UArray2->width, UArray2->height, row, col);
 assert(0);
 }
 
-return UArray_at(UArray2->ray, index);
+int index=row*(UArray2->width) + col;
+ return UArray_at(UArray2->ray, index);
+
 }
+
+
 
 int UArray2_width(T UArray2) {
          assert(UArray2);
@@ -55,7 +59,7 @@ int UArray2_height(T UArray2) {
 }
 
 void UArray2_free(T * UArray2) {
-UArray_free(&(*UArray2)->ray);
+  UArray_free(&(*UArray2)->ray);
 free(*UArray2);
 }
 
@@ -86,7 +90,6 @@ assert(apply);
 
 for (int c = 0; c < UArray2->width; c++) {
         for (int r = 0; r < UArray2->height; r++) {
-printf("r: %d c: %d\n", c, r);
 apply(c, r, UArray2, UArray2_at(UArray2, c, r), cl);
 }
 }
